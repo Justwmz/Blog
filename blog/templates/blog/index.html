@@ -1,5 +1,33 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-<p>Main page</p>
+
+<div class="row">
+    <div class="col-8">
+        {% for post in posts %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.content }}</p>
+                <ul class="list-inline">
+                    <li class="list-inline-item">Category: {{ post.cat }}</li>
+                    <li class="list-inline-item">Created At: {{ post.updated_at|date:"d-m-Y H:i:s" }}</li>
+                </ul>
+            </div>
+            <div class="card-footer text-muted">
+                <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Read more</a>
+            </div>
+        </div>
+        {% endfor %} 
+    </div>
+    <div class="col-4">
+        <div class="list-group">
+            {% for category in categories %} 
+            <a href="{{ category.get_absolute_url }}" class="list-group-item list-group-item-action" aria-current="true">
+              {{ category.name }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}
